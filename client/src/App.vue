@@ -7,7 +7,7 @@ import HelloWorld from './components/HeaderComponent.vue'
   <header>
 
     <div class="wrapper">
-      <HelloWorld msg="Ottawa Crime Analysis" />
+      <HelloWorld msg="Ottawa Geographic Crime Analysis" />
 
       <nav>
         <RouterLink to="/">Home</RouterLink>
@@ -25,6 +25,10 @@ import HelloWorld from './components/HeaderComponent.vue'
   </header>
 
   <RouterView />
+
+  <footer>
+    <p>By Oleksander Turchyn</p>
+  </footer>
 </template>
 
 <style scoped>
@@ -62,6 +66,15 @@ nav a {
 
 nav a:first-of-type {
   border: 0;
+}
+
+footer {
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  bottom: 0; 
+  width: 100%; 
+  height: 8rem; 
 }
 
 </style>

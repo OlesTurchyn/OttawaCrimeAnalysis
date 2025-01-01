@@ -8,23 +8,47 @@
       <div class="card">
         <h2>Purpose of This Project</h2>
         <p>
-          The purpose of this project is to analyze publicly available data on crimes in Ottawa, provide insights into crime trends, and help promote public safety awareness. 
-          By examining data such as shootings, bike thefts, and hate crimes, we aim to shed light on patterns that could inform policy decisions and community actions.
+          This project focuses on mapping geospatial data for various crimes in Ottawa, including arson, assault, shootings, car thefts, and more. 
+          
+          <br><br>
+          By visualizing these incidents on a geographic scale, the project aims to uncover spatial patterns and trends, promote public safety awareness, and provide valuable insights for policy decisions and community action. 
+          
+          <br><br>
+          Through this geo-centric approach, the hope is to help empower residents and stakeholders with a deeper understanding of crime dynamics in Ottawa.
         </p>
       </div>
       <div class="card">
-        <h2>What You’ll Find Here</h2>
+        <h2>Technologies Used</h2>
         <ul>
           <li>
-            Interactive heatmaps showing the concentration of specific crime types across Ottawa.
+            Python libraries such as geopandas and folium
           </li>
           <li>
-            Temporal analyses of crimes by year, month, day, and hour.
+           Jupyter notebooks data preperation and mapping
           </li>
           <li>
-            Detailed breakdowns for different crime categories like shootings, bike theft, and hate crimes.
+           Vue.js for front-end development
           </li>
         </ul>
+      </div>
+      <div class="card">
+        <h2>Data Sources</h2>
+        <ul>
+          <li>
+            <a href="https://open.ottawa.ca/datasets/ottawa::criminal-offences-/about" target="_blank">Criminal Offences</a>between 2017-2021 from the Open Ottawa project.  
+          </li>
+
+          <li>
+            <a href="https://open.ottawa.ca/datasets/ottawa::shootings-and-firearm-discharges/about" target="_blank">Shootings and Firearm Discharges</a> between 2016-2022 from the Open Ottawa project.  
+          </li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Questions or Feedback?</h2>
+        <p>Send an<a href="mailto:oleksander.turchyn@gmail.com" class="email-link">
+          email</a>
+        </p>
+        
       </div>
     </div>
   </section>
@@ -79,7 +103,7 @@ body {
 }
 .card h2 {
   margin-bottom: 10px;
-  color: #178ae9;
+  color: #91b9f6
 }
 .card p, 
 .card ul {

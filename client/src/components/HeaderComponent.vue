@@ -11,7 +11,7 @@ defineProps({
   <div class="greetings">
     <h1>{{ msg }}</h1>
     <h3>
-      Analyzing crime patterns in the city of Ottawa based on publicly available data
+      Mapping crime patterns in Ottawa using publicly available geospatial data
     </h3>
   </div>
 </template>
