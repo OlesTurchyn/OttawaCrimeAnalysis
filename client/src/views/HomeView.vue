@@ -85,12 +85,12 @@ body {
 .home-header h1 {
   margin: 0;
   font-size: 2.8rem;
-  color: #40a9ff;
+  color: var(--color-blue)
 }
 .home-header p {
   margin-top: 10px;
   font-size: 1.2rem;
-  color: #ccc;
+  color: var(--color-text);
 }
 
 /* Content section styling */
@@ -104,7 +104,6 @@ body {
   padding: 0 20px;
 }
 .card {
-  /* background-color: #1e1e1e; */
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   padding: 20px;
@@ -114,11 +113,11 @@ body {
 }
 .card h2 {
   margin-bottom: 10px;
-  color: #91b9f6;
+  color: var(--color-blue)
 }
 .card p,
 .card ul {
-  color: #ccc;
+  color: var(--color-p);
   font-size: 1rem;
 }
 .card ul {

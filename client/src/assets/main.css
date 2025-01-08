@@ -10,7 +10,7 @@
 a,
 .blue {
   text-decoration: none;
-  color: #91b9f6;
+  color: var(--color-blue);
   transition: 0.4s;
   padding: 3px;
 }
@@ -21,15 +21,3 @@ a,
   }
 }
 
-/* @media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
-} */

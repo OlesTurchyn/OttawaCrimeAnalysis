@@ -1,86 +1,91 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
-import { useRoute } from 'vue-router'  // Import useRoute to access current route
+import { ref, onMounted,onBeforeUnmount, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import { RouterLink, RouterView } from 'vue-router'
+
 import HelloWorld from './components/HeaderComponent.vue'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-// State to control if the nav is open or not
 const isNavOpen = ref(false) 
-
-// State to track if the screen size is mobile
 const isMobile = ref(false) 
-
-// State to track the current page title 
 const currentPage = ref('')  
+const route = useRoute()
 
-// Function to update mobile state based on window width
+// State for the theme (light/dark)
+const theme = ref('light')
+
+// Function to toggle the theme
+const toggleTheme = () => {
+  theme.value = theme.value === 'light' ? 'dark' : 'light'
+  applyTheme(theme.value)
+}
+
+// Function to apply the theme
+const applyTheme = (selectedTheme) => {
+  const root = document.documentElement
+  root.classList.remove('light', 'dark')
+  root.classList.add(selectedTheme)
+  localStorage.setItem('theme', selectedTheme)
+}
+
+// Check for the user's preferred color scheme or stored theme
+onMounted(() => {
+  const storedTheme = localStorage.getItem('theme')
+  if (storedTheme) {
+    theme.value = storedTheme
+  } else {
+    // Detect system preference
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+    theme.value = prefersDark ? 'dark' : 'light'
+  }
+  applyTheme(theme.value)
+})
+
+// Mobile detection logic
 const checkMobile = () => {
   isMobile.value = window.innerWidth <= 600
 }
 
-// Add event listeners for window resize
 onMounted(() => {
   checkMobile()
   window.addEventListener('resize', checkMobile)
-  updateCurrentPage()  // Initialize current page on mount
+  updateCurrentPage()
 })
 
-// Clean up event listener
 onBeforeUnmount(() => {
   window.removeEventListener('resize', checkMobile)
 })
 
-// Watch for route changes to update current page title
-const route = useRoute()
-
-// Function to update the page title based on the current route
 const updateCurrentPage = () => {
-  switch (route.path) {
-    case '/':
-      currentPage.value = 'Home'
-      break
-    case '/arson':
-      currentPage.value = 'Arson'
-      break
-    case '/Assault':
-      currentPage.value = 'Assault'
-      break
-    case '/break-and-enter':
-      currentPage.value = 'Break and Enter'
-      break
-    case '/hit-and-run':
-      currentPage.value = 'Hit and Run'
-      break
-    case '/motor-theft':
-      currentPage.value = 'Vehicle Theft'
-      break
-    case '/possession':
-      currentPage.value = 'Drug Possession'
-      break
-    case '/sexual-violations':
-      currentPage.value = 'Sexual Violations'
-      break
-    case '/shootings':
-      currentPage.value = 'Shootings'
-      break
-    case '/theft-over-5000':
-      currentPage.value = 'Theft Over $5000'
-      break
-    default:
-      currentPage.value = 'Unknown'
+  const pathMap = {
+    '/': 'Home',
+    '/arson': 'Arson',
+    '/Assault': 'Assault',
+    '/break-and-enter': 'Break and Enter',
+    '/hit-and-run': 'Hit and Run',
+    '/motor-theft': 'Vehicle Theft',
+    '/possession': 'Drug Possession',
+    '/sexual-violations': 'Sexual Violations',
+    '/shootings': 'Shootings',
+    '/theft-over-5000': 'Theft Over $5000',
   }
+  currentPage.value = pathMap[route.path] || 'Unknown'
 }
 
-// Watch route changes to update page title
 watch(() => route.path, updateCurrentPage)
 </script>
 
 <template>
   <header>
     <div class="wrapper">
+      <!-- Theme Toggle Button -->
+      <div @click="toggleTheme" class="theme-toggle">
+        <font-awesome-icon :icon="theme === 'light' ? ['fas', 'moon'] : ['fas', 'sun']" />
+      </div>
+     
       <HelloWorld msg="Ottawa Geographic Crime Analysis" />
 
-      <!-- Mobile menu toggle button and current page -->
+      <!-- Mobile menu toggle button -->
       <div class="menu-header">
         <button @click="isNavOpen = !isNavOpen" class="mobile-nav-toggle" v-if="isMobile">
           <span v-if="!isNavOpen">☰</span>
@@ -92,8 +97,8 @@ watch(() => route.path, updateCurrentPage)
         </div>
       </div>
 
-      <!-- Mobile menu navigation -->
-      <nav :class="{ open: isNavOpen }">
+      <!-- Navigation -->
+        <nav :class="{ open: isNavOpen }">
         <RouterLink to="/" @click="isNavOpen = false">Home</RouterLink>
         <RouterLink to="/arson" @click="isNavOpen = false">Arson</RouterLink>
         <RouterLink to="/Assault" @click="isNavOpen = false">Assault</RouterLink>
@@ -115,10 +120,61 @@ watch(() => route.path, updateCurrentPage)
   </footer>
 </template>
 
+<style>
+:root.light {
+  --color-background: #ffffff;
+  --color-text: #000000;
+  --color-border: #e0e0e0;
+  --color-header:#000000;
+  --color-subheader: #3c3c3c;
+  --color-p: #252525;
+  --color-blue:#104eac;
+}
+
+:root.dark {
+  --color-background: #181818;
+  --color-text: #ffffff;
+  --color-border: #3e3e3e;
+  --color-header:#ffffff;
+  --color-subheader: #d0d0d0;
+  --color-p: #ccc;
+  --color-blue:#82b2f9;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+p {
+  color: var(--color-p)
+}
+
+h1 {
+  color: var(--color-header);
+}
+
+h2 {
+  color: var(--color-subheader);
+}
+
+h3 {
+  color: var(--color-subheader);
+}
+</style>
+
 <style scoped>
 header {
   line-height: 1.5;
   max-height: 100vh;
+}
+
+.theme-toggle {
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content:right;
+  font-size:1.2rem;
+
 }
 
 nav {
@@ -170,6 +226,7 @@ nav a:first-of-type {
     cursor: pointer;
     color: var(--color-text);
     margin: 1rem;
+    margin-left:-5px;
   }
 
   nav {
@@ -197,7 +254,6 @@ nav a:first-of-type {
   /* Current page title beside the menu icon */
   .current-page {
     font-size: 14px;
-    color: white;
     margin-left: 1rem;
     display: inline-block;
   }
